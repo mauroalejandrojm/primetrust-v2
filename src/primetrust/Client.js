@@ -31,7 +31,7 @@ function Client(opts) {
   this.environment = opts.environment || DEFAULT_ENVIRONMENT;
   this.onGrant = opts.onGrant;
 
-  invariant(typeof opts.userId === "string", "userId is required.");
+  invariant(typeof ths.userId === "string", "userId is required.");
   invariant(typeof opts.username === "string", "username is required.");
   invariant(typeof opts.password === "string", "password is required.");
   invariant(this.environment in ENVIRONMENTS, "Invalid environment.");
