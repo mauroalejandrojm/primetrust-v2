@@ -4,10 +4,10 @@ var Token = require("./Token");
 var isOneOfTypes = require("../utils/isOneOfTypes");
 var snakifyKeys = require("../utils/snakifyKeys");
 var TokenManager = require("./TokenManager");
-var randomUUID = require("crypto");
+var crypto = require("crypto");
 
 var DEFAULT_ENVIRONMENT = "sandbox";
-const DEFAULT_SERVICE_UUID = randomUUID();  
+const DEFAULT_SERVICE_UUID = crypto.randomUUID();
 
 var ENVIRONMENTS = {
   production: {
