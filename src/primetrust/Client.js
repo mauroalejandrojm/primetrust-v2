@@ -25,7 +25,7 @@ var ENVIRONMENTS = {
 function Client(opts) {
   invariant(typeof opts === "object", "First argument must be an object.");
 
-  this.userId = opts.userId || DEFAULT_SERVICE_UUID;
+  this.userId = this.userId || DEFAULT_SERVICE_UUID;
   this.username = opts.username;
   this.password = opts.password;
   this.environment = opts.environment || DEFAULT_ENVIRONMENT;
