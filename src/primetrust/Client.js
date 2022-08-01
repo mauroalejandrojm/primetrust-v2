@@ -4,8 +4,10 @@ var Token = require("./Token");
 var isOneOfTypes = require("../utils/isOneOfTypes");
 var snakifyKeys = require("../utils/snakifyKeys");
 var TokenManager = require("./TokenManager");
+import { randomUUID } from 'crypto';
 
 var DEFAULT_ENVIRONMENT = "sandbox";
+const DEFAULT_SERVICE_UUID = randomUUID();  
 
 var ENVIRONMENTS = {
   production: {
@@ -23,7 +25,7 @@ var ENVIRONMENTS = {
 function Client(opts) {
   invariant(typeof opts === "object", "First argument must be an object.");
 
-  this.userId = this.userId = opts.userId;
+  this.userId = opts.userId || DEFAULT_SERVICE_UUID;
   this.username = opts.username;
   this.password = opts.password;
   this.environment = opts.environment || DEFAULT_ENVIRONMENT;
@@ -43,11 +45,10 @@ function Client(opts) {
   this.apiUrl = ENVIRONMENTS[this.environment].apiUrl;
 
   var self = this;
-
   var thisAuth = auth(this);
+
   this.auth = thisAuth.methods;
   this.Auth = thisAuth.klass;
-
   this.Token = Token.bind(null, this);
 
   var getToken = TokenManager(this).getToken;
@@ -82,6 +83,7 @@ function Client(opts) {
     snakifyKeys(opts);
     return new self.Token(opts);
   };
+
 }
 
 if (process.env.NODE_ENV === "test") {

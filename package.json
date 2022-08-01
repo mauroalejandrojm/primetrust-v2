@@ -1,6 +1,6 @@
 {
   "name": "primetrust-v2",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Primetrust V2 API client",
   "main": "src/index.js",
   "files": [
@@ -16,9 +16,19 @@
     "_prettier": "prettier src/*.js src/**/*.js test/*.js test/**/*.js"
   },
   "keywords": [
-    "Primetrust"
+    "NodeJS",
+    "API",
+    "Primetrust",
+    "Typescript"
   ],
-  "author": "Pattern Potter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauroalejandrojm/primetrust-v2.git"
+  },
+  "author": {
+    "name":"Pattern Potter",
+    "url": "https://github.com/mauroalejandrojm"
+  },
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.2",
