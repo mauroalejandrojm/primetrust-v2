@@ -4,7 +4,7 @@ var Token = require("./Token");
 var isOneOfTypes = require("../utils/isOneOfTypes");
 var snakifyKeys = require("../utils/snakifyKeys");
 var TokenManager = require("./TokenManager");
-import { randomUUID } from 'crypto';
+var randomUUID = require("crypto");
 
 var DEFAULT_ENVIRONMENT = "sandbox";
 const DEFAULT_SERVICE_UUID = randomUUID();  
