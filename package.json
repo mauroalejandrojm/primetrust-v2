@@ -1,6 +1,6 @@
 {
   "name": "primetrust-v2",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primetrust V2 API client",
   "main": "src/index.js",
   "files": [
