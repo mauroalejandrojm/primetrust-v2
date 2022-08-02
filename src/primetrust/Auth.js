@@ -4,9 +4,11 @@ var assign = Object.assign;
 var invariant = require("invariant");
 var rejectEmptyKeys = require("../utils/rejectEmptyKeys");
 var toJson = require("../utils/toJson");
+var expiresAt = require("../utils/expiresAt");
 var snakifyKeys = require("../utils/snakifyKeys");
 var Promise = require("bluebird");
-const { base64 } = require("ethers/lib/utils");
+var TokenManager = require("./TokenManager");
+const DEFAULT_TOKEN_EXPIRATION = new Date(new Date().setMilliseconds(TokenManager().getTokenExpiration()));
 
 fetch.Promise = Promise;
 
@@ -35,30 +37,32 @@ function performOnGrantCallback(client, token) {
 }
 
 function requestToken(client, params) {
-  return fetch(client.tokenUrl, {
+  return fetch(client.authUrl, {
     method: "POST",
     headers: {
-      "Authorization": "Basic " + base64.encode(`${client.username}:${client.password}`),
+      "Authorization": "Basic " + Buffer.from(`${client.username}:${client.password}`).toString('base64'),
       "content-type": "application/x-www-form-urlencoded",
       "user-agent": require("../../src/primetrust/userAgent")
     },
     body: formurlencoded(
       assign(
         {
-          expires_at: client.expires_at,
+          expires_at: params.expires_at || DEFAULT_TOKEN_EXPIRATION,
         },
         params
       )
     )
   })
-    .then(toJson)
-    .then(handleTokenResponse.bind(null, client))
-    .then(performOnGrantCallback.bind(null, client));
+  .then(toJson)
+  .then(expiresAt.bind(null, {expires_at:params.expires_at || DEFAULT_TOKEN_EXPIRATION}))
+  .then(handleTokenResponse.bind(null, client))
+  .then(performOnGrantCallback.bind(null, client));
 }
 
 function refreshGrant(client, token) {
   return requestToken(client, {
-    refresh_token: token.refresh_token
+    grant_type: "refresh_token",
+    token: token
   });
 }
 

@@ -1,25 +1,25 @@
 var Promise = require("bluebird");
-
-var EXPIRES_IN = 480;
+var expiresAt = require("../utils/expiresAt");
+var EXPIRES_IN = 28800000;
 
 function now() {
-  return parseInt(Date.now() / 1000, 10);
+  return new Date(Date.now());
 }
 
 module.exports = function TokenManager(client, initialState) {
   
     var state = Object.assign(
-      { instance: null, expiresIn: null, updatedAt: null },
+      { instance: null, expires_at: null, updated_at: null },
       initialState
     );
   
     var updateToken = function() {
       state.updatedAt = now();
-      state.expiresIn = null;
+      state.expires_at = new Date(new Date().setMilliseconds(EXPIRES_IN));
       state.instance = client.auth.client().then(
         function(token) {
-          state.expiresIn = token.expires_in;
-          return token;
+          state.expires_at = token.expires_at || state.expires_at;
+          return expiresAt(token, {"expires_at":state.expires_at});
         },
         function(err) {
           state.instance = null;
@@ -30,8 +30,8 @@ module.exports = function TokenManager(client, initialState) {
   
     var isTokenFresh = function() {
       return (
-        state.expiresIn === null || // token is updating
-        state.updatedAt + state.expiresIn > now() + EXPIRES_IN
+        state.expires_at === null || // token is updating
+        state.updated_at + state.expires_at > new Date(new Date().setMilliseconds(EXPIRES_IN))
       );
     };
   
@@ -41,6 +41,9 @@ module.exports = function TokenManager(client, initialState) {
           updateToken();
         }
         return state.instance;
+      },
+      getTokenExpiration: function() {
+        return EXPIRES_IN;
       },
       _state: state
     };

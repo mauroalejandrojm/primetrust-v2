@@ -9,17 +9,15 @@ fetch.Promise = Promise;
 
 var Token = function(client, opts) {
   this.client = client;
-  this.access_token = opts.access_token;
-  this.refresh_token = opts.refresh_token;
-  this.expires_in = opts.expires_in;
   this.scope = opts.scope;
-  this.account_id = opts.account_id;
+  this.token = opts.token;
+  this.expires_at = opts.expires_at;
 };
 
 function getHeaders(token, moreHeaders) {
   return assign(
     {
-      Authorization: ["Bearer", token.access_token].join(" "),
+      Authorization: ["Bearer", token.token].join(" "),
       Accept: "application/vnd.primetrust.v2.hal+json",
       "User-Agent": require("./userAgent")
     },
