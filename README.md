@@ -14,7 +14,7 @@ npm install dwolla-v2 --save
 
 ## API Resources
 
-Check the complete list of common use cases for the [Primetrust API](https://developers.primetrust.com/docs/api-resources-overview)
+Check the complete list of common use cases for the [Primetrust API](https://developers.primetrust.com/docs/api-resources-overview).
 
 ## Getting started
 
