@@ -19,7 +19,7 @@ module.exports = function TokenManager(client, initialState) {
       state.instance = client.auth.client().then(
         function(token) {
           state.expires_at = token.expires_at || state.expires_at;
-          return expiresAt(token, {"expires_at":state.expires_at});
+          return token;
         },
         function(err) {
           state.instance = null;

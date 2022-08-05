@@ -28,7 +28,7 @@ function getHeaders(token, moreHeaders) {
 function getUrl(token, suppliedPath, suppliedQuery) {
   var url;
   if (typeof suppliedPath === "object") {
-    url = suppliedPath._links.self.href;
+    url = [token.client.apiUrl, suppliedPath?.links.self].join("");
   } else if (suppliedPath.indexOf(token.client.apiUrl) === 0) {
     url = suppliedPath;
   } else if (suppliedPath.indexOf("/") === 0) {
@@ -72,29 +72,33 @@ function handleResponse(res) {
 }
 
 Token.prototype.get = function(path, query, headers) {
-  return fetch(getUrl(this, path, query), {
-    headers: getHeaders(this, headers)
-  }).then(handleResponse);
+  return fetch(getUrl(this, path, query), 
+              {
+                headers: getHeaders(this, headers)
+              })
+              .then(handleResponse);
 };
 
 Token.prototype.post = function(path, body, headers) {
-  return fetch(getUrl(this, path), {
-    method: "POST",
-    headers: assign(
-      getHeaders(this, headers),
-      isFormData(body)
-        ? body.getHeaders()
-        : { "content-type": "application/json" }
-    ),
-    body: isFormData(body) ? body : JSON.stringify(body)
-  }).then(handleResponse);
+  return fetch(getUrl(this, path), 
+              {
+                method: "POST",
+                headers: assign(
+                  getHeaders(this, headers),
+                  isFormData(body)
+                    ? body.getHeaders()
+                    : { "content-type": "application/json" }
+                ),
+                body: isFormData(body) ? body : JSON.stringify(body)
+              }).then(handleResponse);
 };
 
 Token.prototype.delete = function(path, query, headers) {
-  return fetch(getUrl(this, path, query), {
-    method: "DELETE",
-    headers: getHeaders(this, headers)
-  }).then(handleResponse);
+  return fetch(getUrl(this, path, query), 
+              {
+                method: "DELETE",
+                headers: getHeaders(this, headers)
+              }).then(handleResponse);
 };
 
 module.exports = Token;
