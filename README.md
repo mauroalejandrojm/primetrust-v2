@@ -9,7 +9,7 @@ PrimeTrust V2 Node Client.
 `primetrust-v2` is available on [NPM](https://www.npmjs.com/package/primetrust-v2).
 
 ```
-npm install dwolla-v2 --save
+npm install primetrust-v2 --save
 ```
 
 ## API Resources
