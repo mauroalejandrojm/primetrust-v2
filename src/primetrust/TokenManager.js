@@ -1,5 +1,4 @@
 var Promise = require("bluebird");
-var expiresAt = require("../utils/expiresAt");
 var EXPIRES_IN = process.env.PRIMETRUST_TOKEN_EXPIRATION || 3600000;
 
 function now() {
