@@ -111,4 +111,5 @@ Bug reports and pull requests are welcome on [Github](https://github.com/mauroal
 
 ## Changelog
 
+- **1.1.1** Expiration token can be set using process.env.PRIMETRUST_TOKEN_EXPIRATION or set to 1hr by default. 
 - **1.1.0** Token Manager Function reference fixed, pagination, filering and querying parse not working in query objects for get requests. 

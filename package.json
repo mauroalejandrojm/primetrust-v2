@@ -1,6 +1,6 @@
 {
   "name": "primetrust-v2",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Primetrust V2 API client",
   "main": "src/index.js",
   "files": [
@@ -26,7 +26,7 @@
     "url": "git+https://github.com/mauroalejandrojm/primetrust-v2.git"
   },
   "author": {
-    "name":"Pattern Potter",
+    "name": "Pattern Potter",
     "url": "https://github.com/mauroalejandrojm"
   },
   "license": "MIT",
