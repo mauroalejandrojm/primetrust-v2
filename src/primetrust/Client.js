@@ -10,7 +10,7 @@ var DEFAULT_ENVIRONMENT = "sandbox";
 const DEFAULT_SERVICE_UUID = crypto.randomUUID();
 
 var ENVIRONMENTS = {
-  production: {
+  api: {
     authUrl: "https://api.primetrust.com/auth/jwts",
     tokenUrl: "https://api.primetrust.com/v2/resource-tokens",
     apiUrl: "https://api.primetrust.com"
