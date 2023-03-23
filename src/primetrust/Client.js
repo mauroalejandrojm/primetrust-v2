@@ -53,33 +53,40 @@ function Client(opts) {
 
   var getToken = TokenManager(this).getToken;
 
-  this.get = function() {
+  this.get = function () {
     var getArgs = arguments;
-    return getToken().then(function(token) {
+    return getToken().then(function (token) {
       return token.get.apply(token, getArgs);
     });
   };
 
-  this.post = function() {
+  this.post = function () {
     var postArgs = arguments;
-    return getToken().then(function(token) {
+    return getToken().then(function (token) {
       return token.post.apply(token, postArgs);
     });
   };
 
-  this.delete = function() {
+  this.patch = function () {
+    var patchArgs = arguments;
+    return getToken().then(function (token) {
+      return token.patch.apply(token, patchArgs);
+    });
+  };
+
+  this.delete = function () {
     var deleteArgs = arguments;
-    return getToken().then(function(token) {
+    return getToken().then(function (token) {
       return token.delete.apply(token, deleteArgs);
     });
   };
 
-  this.refreshToken = function(opts) {
+  this.refreshToken = function (opts) {
     snakifyKeys(opts);
     return thisAuth.methods.refresh(new self.Token(opts));
   };
 
-  this.token = function(opts) {
+  this.token = function (opts) {
     snakifyKeys(opts);
     return new self.Token(opts);
   };

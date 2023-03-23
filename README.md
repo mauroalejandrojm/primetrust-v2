@@ -51,13 +51,26 @@ primetrust
 // POST Method
 primetrust
   .post("/v2/users",
-   {
+    {
       "data": {
         "type": "users",
         "attributes": {
           "name": "api_test",
           "email": "api_test@example.com",
           "password": "api_Test11"  //must contain at least one lowercase letter, uppercase letter, and digit and must be at least eight characters in length.
+        }
+      }
+    })
+  .then((res) => console.log(res));
+
+// PATCH Method
+Primetrust
+  .patch(`/v2/accounts/${account_UUID}/sandbox`,
+    {
+      "data": {
+        "type": "accounts",
+        "attributes": {
+          "name": "updated_company_name"
         }
       }
     })

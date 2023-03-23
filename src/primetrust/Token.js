@@ -7,7 +7,7 @@ var Promise = require("bluebird");
 
 fetch.Promise = Promise;
 
-var Token = function(client, opts) {
+var Token = function (client, opts) {
   this.client = client;
   this.scope = opts.scope;
   this.token = opts.token;
@@ -52,7 +52,7 @@ function errorFrom(message, parsedRes) {
 }
 
 function handleResponse(res) {
-  return res.text().then(function(body) {
+  return res.text().then(function (body) {
     var parsedBody;
     try {
       parsedBody = JSON.parse(body);
@@ -71,34 +71,48 @@ function handleResponse(res) {
   });
 }
 
-Token.prototype.get = function(path, query, headers) {
-  return fetch(getUrl(this, path, query), 
-              {
-                headers: getHeaders(this, headers)
-              })
-              .then(handleResponse);
+Token.prototype.get = function (path, query, headers) {
+  return fetch(getUrl(this, path, query),
+    {
+      headers: getHeaders(this, headers)
+    })
+    .then(handleResponse);
 };
 
-Token.prototype.post = function(path, body, headers) {
-  return fetch(getUrl(this, path), 
-              {
-                method: "POST",
-                headers: assign(
-                  getHeaders(this, headers),
-                  isFormData(body)
-                    ? body.getHeaders()
-                    : { "content-type": "application/json" }
-                ),
-                body: isFormData(body) ? body : JSON.stringify(body)
-              }).then(handleResponse);
+Token.prototype.post = function (path, body, headers) {
+  return fetch(getUrl(this, path),
+    {
+      method: "POST",
+      headers: assign(
+        getHeaders(this, headers),
+        isFormData(body)
+          ? body.getHeaders()
+          : { "content-type": "application/json" }
+      ),
+      body: isFormData(body) ? body : JSON.stringify(body)
+    }).then(handleResponse);
 };
 
-Token.prototype.delete = function(path, query, headers) {
-  return fetch(getUrl(this, path, query), 
-              {
-                method: "DELETE",
-                headers: getHeaders(this, headers)
-              }).then(handleResponse);
+Token.prototype.patch = function (path, body, headers) {
+  return fetch(getUrl(this, path),
+    {
+      method: "PATCH",
+      headers: assign(
+        getHeaders(this, headers),
+        isFormData(body)
+          ? body.getHeaders()
+          : { "content-type": "application/json" }
+      ),
+      body: isFormData(body) ? body : JSON.stringify(body)
+    }).then(handleResponse);
+};
+
+Token.prototype.delete = function (path, query, headers) {
+  return fetch(getUrl(this, path, query),
+    {
+      method: "DELETE",
+      headers: getHeaders(this, headers)
+    }).then(handleResponse);
 };
 
 module.exports = Token;
