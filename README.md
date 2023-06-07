@@ -123,6 +123,7 @@ primetrust.get("/v2/users").then(
 Bug reports and pull requests are welcome on [Github](https://github.com/mauroalejandrojm/primetrust-v2/issues).
 
 ## Changelog
-
+- **1.1.5** Headers method expose due to the use case of uploaded documents form.
+- **1.1.4** Patch method added.
 - **1.1.1** Expiration token can be set using process.env.PRIMETRUST_TOKEN_EXPIRATION or set to 1hr by default. 
 - **1.1.0** Token Manager Function reference fixed, pagination, filering and querying parse not working in query objects for get requests. 

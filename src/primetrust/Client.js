@@ -81,6 +81,13 @@ function Client(opts) {
     });
   };
 
+  this.headers = function () {
+    var headersArgs = arguments;
+    return getToken().then(function (token) {
+      return token.headers.apply(token, headersArgs);
+    });
+  }
+
   this.refreshToken = function (opts) {
     snakifyKeys(opts);
     return thisAuth.methods.refresh(new self.Token(opts));

@@ -16,12 +16,14 @@ declare module "primetrust-v2" {
       headers?: { "Idempotency-Key"?: string } & { [prop: string]: string }
     ) => Promise<Response>;
     delete: (path: string) => Promise<Response>;
+    headers: () => Promise<Response>;
     constructor(options: {
       userId: string;
       username: string;
       password: string;
       environment?: "sandbox" | "api";
     });
+
   }
 
   interface Response {

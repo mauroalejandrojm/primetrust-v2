@@ -115,4 +115,8 @@ Token.prototype.delete = function (path, query, headers) {
     }).then(handleResponse);
 };
 
+Token.prototype.headers = function (headers) {
+  return { headers: getHeaders(this, headers) };
+}
+
 module.exports = Token;
